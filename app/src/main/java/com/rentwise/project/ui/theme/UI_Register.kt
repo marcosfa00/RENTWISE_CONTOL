@@ -86,6 +86,10 @@ fun MyForm() {
             readOnly = true // Para propósitos de visualización, podrías abrir un diálogo de selección de fecha al hacer clic
         )
 
+        Row {
+            SignUpButton()
+            BackToLogIn()
+        }
         // Agregar un botón u otros elementos de UI para el envío del formulario o la selección de fecha
     }
 }
@@ -98,7 +102,7 @@ fun SignUpButton() {
             // Acción al presionar el botón de registro
 
         },
-        modifier = Modifier.padding(top = 8.dp)
+        modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "Registrarse")
     }
@@ -109,9 +113,10 @@ fun BackToLogIn(){
     Button(
         onClick = {
             // Acción al presionar el botón de registro
+                  DataClass.currentState.value = DataClass.AppState.LOGIN
 
         },
-        modifier = Modifier.padding(top = 8.dp)
+        modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "Volver al login")
     }
