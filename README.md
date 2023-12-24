@@ -1,2 +1,5 @@
-# RENTWISE_CONTOL
-Innovative app for effortless home expense management. Our expert team ensures a user-friendly experience for seamless development.
+# RENTWISE CONTROL
+
+## USER INTEFACE
+We have created the first part of the user interface, the Log In, it does not work yet, but it is the first step to create the whole interface.
+
