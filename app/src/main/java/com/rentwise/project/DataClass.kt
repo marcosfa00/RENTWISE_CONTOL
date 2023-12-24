@@ -4,12 +4,12 @@ import androidx.compose.runtime.mutableStateOf
 
 object DataClass {
 
-    val dni= String
-    val email= String
-    val phoneNumber= String
-    val username= String
-    val password= String
-    val dateOfBirth= String
+    val dni = mutableStateOf("")
+    val email = mutableStateOf("")
+    val phoneNumber = mutableStateOf("")
+    val username = mutableStateOf("")
+    val password = mutableStateOf("")
+    val dateOfBirth = mutableStateOf("")
     //var currentState =AppState.START
     var currentState = mutableStateOf(AppState.START)
     /**

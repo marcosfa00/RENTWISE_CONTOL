@@ -47,7 +47,7 @@ fun Greeting(model: viewModel) {
             Log.d("Login", "Estado actual: ${currentState.value}")
         }
         DataClass.AppState.REGISTRO -> {
-            MyForm()
+            CenteredMyForm()
         }
     }
 }

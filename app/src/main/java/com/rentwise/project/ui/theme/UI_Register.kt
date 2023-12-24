@@ -14,17 +14,29 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+import com.rentwise.project.DataClass
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun CenteredMyForm() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        MyForm()
+    }
+}
+@OptIn( ExperimentalMaterial3Api::class)
+@Composable
 fun MyForm() {
-    var dni by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var dateOfBirth by remember { mutableStateOf("") }
+    val dni = DataClass.dni.value
+    val email = DataClass.email.value
+    val phoneNumber = DataClass.phoneNumber.value
+    val username = DataClass.username.value
+    val password = DataClass.password.value
+    val dateOfBirth = DataClass.dateOfBirth.value
 
     Column(
         modifier = Modifier
@@ -35,46 +47,46 @@ fun MyForm() {
     ) {
         OutlinedTextField(
             value = dni,
-            onValueChange = { dni = it },
+            onValueChange = { DataClass.dni.value = it },
             label = { Text("DNI") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = { DataClass.email.value = it },
             label = { Text("Correo") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
 
         OutlinedTextField(
             value = phoneNumber,
-            onValueChange = { phoneNumber = it },
+            onValueChange = { DataClass.phoneNumber.value = it },
             label = { Text("Teléfono") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
         )
 
         OutlinedTextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = { DataClass.username.value = it },
             label = { Text("Usuario") }
         )
 
         OutlinedTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = { DataClass.password.value = it },
             label = { Text("Contraseña") },
             visualTransformation = PasswordVisualTransformation()
         )
 
         OutlinedTextField(
             value = dateOfBirth,
-            onValueChange = { /* You can handle date selection logic here */ },
+            onValueChange = { /* Puedes manejar la lógica de selección de fecha aquí */ },
             label = { Text("Fecha de nacimiento") },
-            readOnly = true // For display purposes, you might want to open a date picker dialog on click
+            readOnly = true // Para propósitos de visualización, podrías abrir un diálogo de selección de fecha al hacer clic
         )
 
-        // Add a button or any other UI elements for form submission or date selection
+        // Agregar un botón u otros elementos de UI para el envío del formulario o la selección de fecha
     }
 }
 
@@ -89,6 +101,19 @@ fun SignUpButton() {
         modifier = Modifier.padding(top = 8.dp)
     ) {
         Text(text = "Registrarse")
+    }
+}
+
+@Composable
+fun BackToLogIn(){
+    Button(
+        onClick = {
+            // Acción al presionar el botón de registro
+
+        },
+        modifier = Modifier.padding(top = 8.dp)
+    ) {
+        Text(text = "Volver al login")
     }
 }
 
