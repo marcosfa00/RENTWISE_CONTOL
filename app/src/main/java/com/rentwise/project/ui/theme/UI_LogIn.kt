@@ -27,27 +27,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
+import com.rentwise.project.DataClass
+import com.rentwise.project.viewModel
+
 /**
  * Here we will define all the composable functions that will be used to style our app.
  */
-@Composable
-fun Greeting() {
-    //SignIn()
-    MyForm()
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RENTWISE_CONTROLTheme {
-        Greeting()
-    }
-}
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignIn() {
+fun SignIn(model: viewModel) {
     // Estados para el valor del usuario y la contraseña
     val usernameState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
@@ -94,7 +87,7 @@ fun SignIn() {
 
             Row {
                 LoginButton(username = usernameState.value, password = passwordState.value)
-                OpenSignUpButton()
+                OpenSignUpButton(model)
             }
         }
     }
@@ -118,11 +111,13 @@ fun LoginButton(username: String, password: String) {
 }
 
 @Composable
-fun OpenSignUpButton() {
+fun OpenSignUpButton(model: viewModel) {
+    val currentState = DataClass.currentState.value
     Button(
         onClick = {
-            // Acción al presionar el botón de sign up
-            /* TODO: Handle sign up */
+            if (currentState == DataClass.AppState.LOGIN) {
+                model.changeState()
+            }
         },
         modifier = Modifier.padding(16.dp)
     ) {
