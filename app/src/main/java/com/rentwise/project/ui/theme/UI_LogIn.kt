@@ -32,7 +32,8 @@ import androidx.compose.ui.graphics.Color
  */
 @Composable
 fun Greeting() {
-    SignIn()
+    //SignIn()
+    MyForm()
 }
 
 @Preview(showBackground = true)
@@ -63,7 +64,9 @@ fun SignIn() {
             OutlinedTextField(
                 value = usernameState.value,
                 onValueChange = { newValue -> usernameState.value = newValue },
-                label = { Text("Usuario") },
+                label = { Text(text ="Usuario",
+                    color = Color.Gray
+                )},
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color.Gray, // Color del borde al estar enfocado
                     unfocusedBorderColor = Color.Gray, // Color del borde al no estar enfocado
@@ -75,7 +78,10 @@ fun SignIn() {
             OutlinedTextField(
                 value = passwordState.value,
                 onValueChange = { newValue -> passwordState.value = newValue },
-                label = { Text("Contraseña") },
+                label = {
+                    Text(text="Contraseña",
+                        color = Color.Gray)
+                        },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.padding(top = 8.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -88,7 +94,7 @@ fun SignIn() {
 
             Row {
                 LoginButton(username = usernameState.value, password = passwordState.value)
-                SignUpButton()
+                OpenSignUpButton()
             }
         }
     }
@@ -112,7 +118,7 @@ fun LoginButton(username: String, password: String) {
 }
 
 @Composable
-fun SignUpButton() {
+fun OpenSignUpButton() {
     Button(
         onClick = {
             // Acción al presionar el botón de sign up
