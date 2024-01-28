@@ -1,15 +1,12 @@
-package com.rentwise.project
+package com.rentwise.project.data
 
 import androidx.compose.runtime.mutableStateOf
+import com.rentwise.project.database.Users
 
-object DataClass {
+val TAG = "Login"
+object Data {
+    var usersList : MutableList<Users> = mutableListOf()
 
-    val dni = mutableStateOf("")
-    val email = mutableStateOf("")
-    val phoneNumber = mutableStateOf("")
-    val username = mutableStateOf("")
-    val password = mutableStateOf("")
-    val dateOfBirth = mutableStateOf("")
     //var currentState =AppState.START
     var currentState = mutableStateOf(AppState.START)
     /**
@@ -19,5 +16,7 @@ object DataClass {
         START,// Estado inicial de la aplicación
         LOGIN,// Estado de la aplicación cuando se está en la pantalla de login
         REGISTRO,// Estado de la aplicación cuando se está en la pantalla de registro
+        HOME // Estado de la aplicacion cuando ha superado el Log In
     }
 }
+

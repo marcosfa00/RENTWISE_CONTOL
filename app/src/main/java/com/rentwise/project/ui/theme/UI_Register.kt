@@ -1,5 +1,6 @@
 package com.rentwise.project.ui.theme
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -12,31 +13,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rentwise.project.DataClass
+import com.rentwise.project.data.Data
+import com.rentwise.project.data.User
+import com.rentwise.project.ViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun CenteredMyForm() {
+fun CenteredMyForm(vModel: ViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
-        MyForm()
+        MyForm(vModel)
     }
 }
 @OptIn( ExperimentalMaterial3Api::class)
 @Composable
-fun MyForm() {
-    val dni = DataClass.dni.value
-    val email = DataClass.email.value
-    val phoneNumber = DataClass.phoneNumber.value
-    val username = DataClass.username.value
-    val password = DataClass.password.value
-    val dateOfBirth = DataClass.dateOfBirth.value
+fun MyForm(vModel : ViewModel) {
+
+
 
     Column(
         modifier = Modifier
@@ -46,48 +44,48 @@ fun MyForm() {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         OutlinedTextField(
-            value = dni,
-            onValueChange = { DataClass.dni.value = it },
+            value = User.dni,
+            onValueChange = { User.dni = it },
             label = { Text("DNI") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         OutlinedTextField(
-            value = email,
-            onValueChange = { DataClass.email.value = it },
+            value = User.email,
+            onValueChange = { User.email= it },
             label = { Text("Correo") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
 
         OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { DataClass.phoneNumber.value = it },
+            value = User.phoneNumber,
+            onValueChange = { User.phoneNumber = it },
             label = { Text("Teléfono") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
         )
 
         OutlinedTextField(
-            value = username,
-            onValueChange = { DataClass.username.value = it },
+            value = User.username,
+            onValueChange = { User.username = it },
             label = { Text("Usuario") }
         )
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { DataClass.password.value = it },
+            value = User.password,
+            onValueChange = { User.password = it },
             label = { Text("Contraseña") },
             visualTransformation = PasswordVisualTransformation()
         )
 
         OutlinedTextField(
-            value = dateOfBirth,
+            value = "",
             onValueChange = { /* Puedes manejar la lógica de selección de fecha aquí */ },
             label = { Text("Fecha de nacimiento") },
             readOnly = true // Para propósitos de visualización, podrías abrir un diálogo de selección de fecha al hacer clic
         )
 
         Row {
-            SignUpButton()
+            SignUpButton(vModel)
             BackToLogIn()
         }
         // Agregar un botón u otros elementos de UI para el envío del formulario o la selección de fecha
@@ -96,10 +94,11 @@ fun MyForm() {
 
 
 @Composable
-fun SignUpButton() {
+fun SignUpButton(vModel : ViewModel) {
     Button(
         onClick = {
             // Acción al presionar el botón de registro
+                vModel.register(User)
 
         },
         modifier = Modifier.padding(16.dp)
@@ -112,9 +111,8 @@ fun SignUpButton() {
 fun BackToLogIn(){
     Button(
         onClick = {
-            // Acción al presionar el botón de registro
-                  DataClass.currentState.value = DataClass.AppState.LOGIN
-
+            // Acción al presionar el botón de volver al Log in
+                  Data.currentState.value = Data.AppState.LOGIN
         },
         modifier = Modifier.padding(16.dp)
     ) {
