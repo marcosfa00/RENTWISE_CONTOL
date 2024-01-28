@@ -9,13 +9,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.rentwise.project.DataClass.currentState
+import androidx.room.Room
+import com.rentwise.project.data.Data
+import com.rentwise.project.data.Data.currentState
+import com.rentwise.project.data.TAG
+import com.rentwise.project.database.AppDatabase
 import com.rentwise.project.ui.theme.*
 import com.rentwise.project.ui.theme.RENTWISE_CONTROLTheme
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity() : ComponentActivity() {
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,7 +32,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(viewModel())
+                    val database = Room.databaseBuilder(
+                        this,
+                        AppDatabase::class.java,
+                        "user"
+                    ).build()
+                    val dao = database.userDAO()
+
+                    val viewModel = ViewModel(dao)
+                    viewModel.getUsers()
+
+                    Greeting(viewModel)
                 }
             }
         }
@@ -33,21 +50,24 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d("Login", "Estado actual: ${currentState.value}")
-        DataClass.currentState.value = DataClass.AppState.LOGIN
+        Log.d(TAG, "Estado actual: ${currentState.value}")
+        currentState.value = Data.AppState.LOGIN
     }
 }
 
 
 @Composable
-fun Greeting(model: viewModel) {
+fun Greeting(vModel: ViewModel) {
     when (currentState.value) {
-        DataClass.AppState.START, DataClass.AppState.LOGIN -> {
-            SignIn(model = model)
-            Log.d("Login", "Estado actual: ${currentState.value}")
+        Data.AppState.START, Data.AppState.LOGIN -> {
+            SignIn(vModel)
+            Log.d(TAG, "Estado actual: ${currentState.value}")
         }
-        DataClass.AppState.REGISTRO -> {
-            CenteredMyForm()
+        Data.AppState.REGISTRO -> {
+            CenteredMyForm(vModel)
+        }
+        Data.AppState.HOME ->{
+            WelcomeHome(vModel)
         }
     }
 }

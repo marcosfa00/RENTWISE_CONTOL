@@ -21,14 +21,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import com.rentwise.project.DataClass
-import com.rentwise.project.viewModel
+import com.rentwise.project.data.Data
+import com.rentwise.project.ViewModel
+import com.rentwise.project.data.TAG
+
 
 /**
  * Here we will define all the composable functions that will be used to style our app.
@@ -40,9 +41,9 @@ import com.rentwise.project.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignIn(model: viewModel) {
+fun SignIn(vModel: ViewModel) {
     // Estados para el valor del usuario y la contraseña
-    val usernameState = remember { mutableStateOf("") }
+    val dniState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
 
     Box(
@@ -55,8 +56,8 @@ fun SignIn(model: viewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
-                value = usernameState.value,
-                onValueChange = { newValue -> usernameState.value = newValue },
+                value = dniState.value,
+                onValueChange = { newValue -> dniState.value = newValue },
                 label = { Text(text ="Usuario",
                     color = Color.Gray
                 )},
@@ -67,7 +68,7 @@ fun SignIn(model: viewModel) {
                     cursorColor = Color.Black // Color del cursor
                 )
             )
-
+    
             OutlinedTextField(
                 value = passwordState.value,
                 onValueChange = { newValue -> passwordState.value = newValue },
@@ -86,8 +87,8 @@ fun SignIn(model: viewModel) {
             )
 
             Row {
-                LoginButton(username = usernameState.value, password = passwordState.value)
-                OpenSignUpButton(model)
+                LoginButton(dni = dniState.value, password = passwordState.value, vModel)
+                OpenSignUpButton(vModel)
             }
         }
     }
@@ -97,12 +98,17 @@ fun SignIn(model: viewModel) {
 
 
 @Composable
-fun LoginButton(username: String, password: String) {
+fun LoginButton(dni: String, password: String, vModel: ViewModel) {
     Button(
         onClick = {
             // Acción al presionar el botón de login
-            Log.d("Login", "Username: $username")
-            Log.d("Login", "Password: $password")
+            Log.d(TAG, "Username: $dni")
+            Log.d(TAG, "Password: $password")
+
+            //vm.logIn(username,password)
+            vModel.login(dni,password)
+
+
         },
         modifier = Modifier.padding(16.dp)
     ) {
@@ -111,12 +117,12 @@ fun LoginButton(username: String, password: String) {
 }
 
 @Composable
-fun OpenSignUpButton(model: viewModel) {
-    val currentState = DataClass.currentState.value
+fun OpenSignUpButton(vModel: ViewModel) {
+    val currentState = Data.currentState.value
     Button(
         onClick = {
-            if (currentState == DataClass.AppState.LOGIN) {
-                model.changeState()
+            if (currentState == Data.AppState.LOGIN) {
+                vModel.changeState()
             }
         },
         modifier = Modifier.padding(16.dp)
