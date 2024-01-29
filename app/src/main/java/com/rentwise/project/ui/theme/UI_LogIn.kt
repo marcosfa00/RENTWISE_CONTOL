@@ -35,10 +35,6 @@ import com.rentwise.project.data.TAG
  * Here we will define all the composable functions that will be used to style our app.
  */
 
-
-
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignIn(vModel: ViewModel) {
@@ -122,7 +118,7 @@ fun OpenSignUpButton(vModel: ViewModel) {
     Button(
         onClick = {
             if (currentState == Data.AppState.LOGIN) {
-                vModel.changeState()
+                vModel.changeState(2)
             }
         },
         modifier = Modifier.padding(16.dp)

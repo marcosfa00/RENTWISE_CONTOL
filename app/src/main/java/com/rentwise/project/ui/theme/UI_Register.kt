@@ -28,8 +28,12 @@ fun CenteredMyForm(vModel: ViewModel) {
         contentAlignment = Alignment.Center
     ) {
         MyForm(vModel)
+
     }
 }
+
+
+
 @OptIn( ExperimentalMaterial3Api::class)
 @Composable
 fun MyForm(vModel : ViewModel) {
@@ -77,16 +81,10 @@ fun MyForm(vModel : ViewModel) {
             visualTransformation = PasswordVisualTransformation()
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = { /* Puedes manejar la lógica de selección de fecha aquí */ },
-            label = { Text("Fecha de nacimiento") },
-            readOnly = true // Para propósitos de visualización, podrías abrir un diálogo de selección de fecha al hacer clic
-        )
 
         Row {
             SignUpButton(vModel)
-            BackToLogIn()
+            BackToLogIn(vModel)
         }
         // Agregar un botón u otros elementos de UI para el envío del formulario o la selección de fecha
     }
@@ -108,11 +106,11 @@ fun SignUpButton(vModel : ViewModel) {
 }
 
 @Composable
-fun BackToLogIn(){
+fun BackToLogIn(vModel:  ViewModel){
     Button(
         onClick = {
-            // Acción al presionar el botón de volver al Log in
-                  Data.currentState.value = Data.AppState.LOGIN
+            vModel.changeState(1)
+
         },
         modifier = Modifier.padding(16.dp)
     ) {

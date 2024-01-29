@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rentwise.project.ViewModel
+import com.rentwise.project.data.Data
 
 
 @Composable
@@ -26,26 +27,31 @@ fun WelcomeHome(vModel: ViewModel) {
     ) {
         // Título
         Text(
-            text = "Bienvenido a Nuestra Inmobiliaria",
+            text = "Bienvenido a RENTWISE CONTROL",
             style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
         // Lista de casas
-        HouseItem("Casa 1", "Descripción de la Casa 1")
-        HouseItem("Casa 2", "Descripción de la Casa 2")
-        HouseItem("Casa 3", "Descripción de la Casa 3")
+        HouseItem("Piso 1", "Piso en García Barbón", vModel)
+        HouseItem("Piso 2", "Piso en el Calvario", vModel)
+        HouseItem("Casa 3", "Casa en Sardoma", vModel)
         // Puedes agregar más elementos según sea necesario
+        BackToLogIn(vModel)
     }
 }
 @Composable
-fun HouseItem(title: String, description: String) {
+fun HouseItem(title: String, description: String, vModel: ViewModel) {
     // Elemento de la casa
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { /* Manejar clic en la casa */ }
+            .clickable {
+                /* Manejar clic en la casa */
+                vModel.changeState(4)
+
+            }
 
     ) {
         Column(
@@ -70,5 +76,7 @@ fun HouseItem(title: String, description: String) {
         }
     }
 }
+
+
 
 
