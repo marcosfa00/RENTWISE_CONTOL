@@ -1,6 +1,7 @@
 package com.rentwise.project.ui.theme
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -11,9 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.rentwise.project.R
 import com.rentwise.project.data.Data
 import com.rentwise.project.data.User
 import com.rentwise.project.ViewModel
@@ -21,15 +25,30 @@ import com.rentwise.project.ViewModel
 
 @Composable
 fun CenteredMyForm(vModel: ViewModel) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        MyForm(vModel)
+    Box{
+        Image(
+            painter = painterResource(id = R.drawable.background), // Reemplaza con la URL real
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+
+            MyForm(vModel)
+
+        }
+
     }
+
 }
+
+
+
 @OptIn( ExperimentalMaterial3Api::class)
 @Composable
 fun MyForm(vModel : ViewModel) {
@@ -77,16 +96,10 @@ fun MyForm(vModel : ViewModel) {
             visualTransformation = PasswordVisualTransformation()
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = { /* Puedes manejar la lógica de selección de fecha aquí */ },
-            label = { Text("Fecha de nacimiento") },
-            readOnly = true // Para propósitos de visualización, podrías abrir un diálogo de selección de fecha al hacer clic
-        )
 
         Row {
             SignUpButton(vModel)
-            BackToLogIn()
+            BackToLogIn(vModel)
         }
         // Agregar un botón u otros elementos de UI para el envío del formulario o la selección de fecha
     }
@@ -108,11 +121,11 @@ fun SignUpButton(vModel : ViewModel) {
 }
 
 @Composable
-fun BackToLogIn(){
+fun BackToLogIn(vModel:  ViewModel){
     Button(
         onClick = {
-            // Acción al presionar el botón de volver al Log in
-                  Data.currentState.value = Data.AppState.LOGIN
+            vModel.changeState(1)
+
         },
         modifier = Modifier.padding(16.dp)
     ) {

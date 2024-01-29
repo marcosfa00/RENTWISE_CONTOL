@@ -69,6 +69,9 @@ fun Greeting(vModel: ViewModel) {
         Data.AppState.HOME ->{
             WelcomeHome(vModel)
         }
+        Data.AppState.HOUSE ->{
+            InsideHouse(vModel = vModel)
+        }
     }
 }
 
