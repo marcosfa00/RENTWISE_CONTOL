@@ -1,12 +1,14 @@
 package com.rentwise.project.ui.theme
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 
 
 import androidx.compose.foundation.layout.Column
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.rentwise.project.R
 import com.rentwise.project.data.Data
 import com.rentwise.project.ViewModel
 import com.rentwise.project.data.TAG
@@ -41,50 +46,72 @@ fun SignIn(vModel: ViewModel) {
     // Estados para el valor del usuario y la contraseña
     val dniState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
+    Box {
+        Image(
+            painter = painterResource(id = R.drawable.background), // Reemplaza con la URL real
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            OutlinedTextField(
-                value = dniState.value,
-                onValueChange = { newValue -> dniState.value = newValue },
-                label = { Text(text ="Usuario",
-                    color = Color.Gray
-                )},
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color.Gray, // Color del borde al estar enfocado
-                    unfocusedBorderColor = Color.Gray, // Color del borde al no estar enfocado
-                    textColor = Color.Black, // Color del texto
-                    cursorColor = Color.Black // Color del cursor
-                )
-            )
-    
-            OutlinedTextField(
-                value = passwordState.value,
-                onValueChange = { newValue -> passwordState.value = newValue },
-                label = {
-                    Text(text="Contraseña",
-                        color = Color.Gray)
-                        },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.padding(top = 8.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color.Gray, // Color del borde al estar enfocado
-                    unfocusedBorderColor = Color.Gray, // Color del borde al no estar enfocado
-                    textColor = Color.Black, // Color del texto
-                    cursorColor = Color.Black // Color del cursor
-                )
-            )
 
-            Row {
-                LoginButton(dni = dniState.value, password = passwordState.value, vModel)
-                OpenSignUpButton(vModel)
+            Image(
+                painter = painterResource(id = R.drawable.background), // Reemplaza con la URL real
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+
+            )
+            Column(
+                modifier = Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                OutlinedTextField(
+                    value = dniState.value,
+                    onValueChange = { newValue -> dniState.value = newValue },
+                    label = {
+                        Text(
+                            text = "Usuario",
+                            color = Color.Gray
+                        )
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray, // Color del borde al estar enfocado
+                        unfocusedBorderColor = Color.Gray, // Color del borde al no estar enfocado
+                        textColor = Color.Black, // Color del texto
+                        cursorColor = Color.Black // Color del cursor
+                    )
+                )
+
+                OutlinedTextField(
+                    value = passwordState.value,
+                    onValueChange = { newValue -> passwordState.value = newValue },
+                    label = {
+                        Text(
+                            text = "Contraseña",
+                            color = Color.Gray
+                        )
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.padding(top = 8.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.Gray, // Color del borde al estar enfocado
+                        unfocusedBorderColor = Color.Gray, // Color del borde al no estar enfocado
+                        textColor = Color.Black, // Color del texto
+                        cursorColor = Color.Black // Color del cursor
+                    )
+                )
+
+                Row {
+                    LoginButton(dni = dniState.value, password = passwordState.value, vModel)
+                    OpenSignUpButton(vModel)
+                }
             }
         }
     }

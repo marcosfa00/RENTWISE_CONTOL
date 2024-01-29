@@ -21,8 +21,6 @@ import com.rentwise.project.ViewModel
 
 @Composable
 fun InsideHouse(vModel: ViewModel) {
-    // Puedes cambiar la URL de la imagen según tus necesidades
-    val imageUrl = "https://ejemplo.com/imagen.jpg"
 
     Box(
         modifier = Modifier
@@ -31,7 +29,7 @@ fun InsideHouse(vModel: ViewModel) {
     ) {
         // Carga la imagen con Glide, Picasso u otra biblioteca de tu elección
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground), // Reemplaza con la URL real
+            painter = painterResource(id = R.drawable.background), // Reemplaza con la URL real
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -53,6 +51,7 @@ fun InsideHouse(vModel: ViewModel) {
 
             // Puedes agregar más elementos aquí según tus necesidades
         }
+        BackToLogIn(vModel)
     }
 }
 

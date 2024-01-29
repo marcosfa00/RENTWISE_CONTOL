@@ -1,6 +1,7 @@
 package com.rentwise.project.ui.theme
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -11,9 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.rentwise.project.R
 import com.rentwise.project.data.Data
 import com.rentwise.project.data.User
 import com.rentwise.project.ViewModel
@@ -21,15 +25,26 @@ import com.rentwise.project.ViewModel
 
 @Composable
 fun CenteredMyForm(vModel: ViewModel) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        MyForm(vModel)
+    Box{
+        Image(
+            painter = painterResource(id = R.drawable.background), // Reemplaza con la URL real
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+
+            MyForm(vModel)
+
+        }
 
     }
+
 }
 
 
