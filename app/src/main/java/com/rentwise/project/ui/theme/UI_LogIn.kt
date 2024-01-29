@@ -61,13 +61,7 @@ fun SignIn(vModel: ViewModel) {
                 .padding(16.dp)
         ) {
 
-            Image(
-                painter = painterResource(id = R.drawable.background), // Reemplaza con la URL real
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
 
-            )
             Column(
                 modifier = Modifier.align(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally
