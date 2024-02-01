@@ -47,7 +47,7 @@ fun WelcomeHome(vModel: ViewModel) {
             Text(
                 text = "RENTWISE CONTROL",
                 style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
-                modifier = Modifier.padding( 40.dp)
+                modifier = Modifier.padding(40.dp,40.dp,20.dp,10.dp)
             )
 
             LazyColumn(){
