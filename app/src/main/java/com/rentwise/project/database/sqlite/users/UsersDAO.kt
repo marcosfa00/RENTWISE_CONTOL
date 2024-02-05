@@ -1,4 +1,4 @@
-package com.rentwise.project.database
+package com.rentwise.project.database.sqlite.users
 
 import androidx.room.Dao
 import androidx.room.Delete

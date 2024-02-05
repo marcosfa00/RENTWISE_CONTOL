@@ -13,7 +13,7 @@ import androidx.room.Room
 import com.rentwise.project.data.Data
 import com.rentwise.project.data.Data.currentState
 import com.rentwise.project.data.TAG
-import com.rentwise.project.database.AppDatabase
+import com.rentwise.project.database.sqlite.users.AppDatabase
 import com.rentwise.project.ui.theme.*
 import com.rentwise.project.ui.theme.RENTWISE_CONTROLTheme
 
