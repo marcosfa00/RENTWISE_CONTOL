@@ -1,7 +1,7 @@
 package com.rentwise.project.data
 
 import androidx.compose.runtime.mutableStateOf
-import com.rentwise.project.database.Users
+import com.rentwise.project.database.sqlite.users.Users
 
 val TAG = "Login"
 object Data {

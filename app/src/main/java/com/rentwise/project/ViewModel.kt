@@ -1,6 +1,5 @@
 package com.rentwise.project
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,8 +8,8 @@ import com.rentwise.project.data.Data.currentState
 import com.rentwise.project.data.Data.usersList
 import com.rentwise.project.data.TAG
 import com.rentwise.project.data.User
-import com.rentwise.project.database.Users
-import com.rentwise.project.database.UsersDAO
+import com.rentwise.project.database.sqlite.users.Users
+import com.rentwise.project.database.sqlite.users.UsersDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
