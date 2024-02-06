@@ -3,6 +3,7 @@ package com.rentwise.project.ui.theme
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material3.Button
@@ -62,44 +63,54 @@ fun MyForm(vModel : ViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        OutlinedTextField(
-            value = User.dni,
-            onValueChange = { User.dni = it },
-            label = { Text("DNI") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
 
-        OutlinedTextField(
-            value = User.email,
-            onValueChange = { User.email= it },
-            label = { Text("Correo") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-        )
+        LazyColumn() {
 
-        OutlinedTextField(
-            value = User.phoneNumber,
-            onValueChange = { User.phoneNumber = it },
-            label = { Text("Teléfono") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
-        )
+            item {
 
-        OutlinedTextField(
-            value = User.username,
-            onValueChange = { User.username = it },
-            label = { Text("Usuario") }
-        )
+                OutlinedTextField(
+                    value = User.dni,
+                    onValueChange = { User.dni = it },
+                    label = { Text("DNI") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
 
-        OutlinedTextField(
-            value = User.password,
-            onValueChange = { User.password = it },
-            label = { Text("Contraseña") },
-            visualTransformation = PasswordVisualTransformation()
-        )
 
+                OutlinedTextField(
+                    value = User.email,
+                    onValueChange = { User.email = it },
+                    label = { Text("Correo") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                )
+
+
+                OutlinedTextField(
+                    value = User.phoneNumber,
+                    onValueChange = { User.phoneNumber = it },
+                    label = { Text("Teléfono") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+                )
+
+
+                OutlinedTextField(
+                    value = User.username,
+                    onValueChange = { User.username = it },
+                    label = { Text("Usuario") }
+                )
+
+
+            OutlinedTextField(
+                value = User.password,
+                onValueChange = { User.password = it },
+                label = { Text("Contraseña") },
+                visualTransformation = PasswordVisualTransformation()
+            )
+        }
+        }
 
         Row {
             SignUpButton(vModel)
-            BackToLogIn(vModel)
+            Back(vModel,1)
         }
         // Agregar un botón u otros elementos de UI para el envío del formulario o la selección de fecha
     }
@@ -121,16 +132,17 @@ fun SignUpButton(vModel : ViewModel) {
 }
 
 @Composable
-fun BackToLogIn(vModel:  ViewModel){
+fun Back(vModel:  ViewModel, state: Int){
     Button(
         onClick = {
-            vModel.changeState(1)
+            vModel.changeState(state)
 
         },
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = "Volver al login")
+        Text(text = "Volver")
     }
 }
+
 
 

@@ -51,7 +51,7 @@ fun InsideHouse(vModel: ViewModel) {
 
             // Puedes agregar más elementos aquí según tus necesidades
         }
-        BackToLogIn(vModel)
+        Back(vModel,3)
     }
 }
 

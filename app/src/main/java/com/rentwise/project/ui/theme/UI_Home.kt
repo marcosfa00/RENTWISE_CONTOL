@@ -1,6 +1,7 @@
 package com.rentwise.project.ui.theme
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +23,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rentwise.project.R
 import com.rentwise.project.ViewModel
-import com.rentwise.project.data.Data
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 
 
 @Composable
@@ -44,6 +57,7 @@ fun WelcomeHome(vModel: ViewModel) {
                 .padding(16.dp)
         ) {
             // Título
+            BtnAddHouse(model = vModel)
             Text(
                 text = "RENTWISE CONTROL",
                 style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
@@ -62,7 +76,7 @@ fun WelcomeHome(vModel: ViewModel) {
 
 
             // Puedes agregar más elementos según sea necesario
-            BackToLogIn(vModel)
+            Back(vModel,1)
         }
     }
 
@@ -103,6 +117,34 @@ fun HouseItem(title: String, description: String, vModel: ViewModel) {
         }
     }
 }
+
+
+@Composable
+fun BtnAddHouse(model: ViewModel) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        IconButton(
+            onClick = { expanded = true },
+            modifier = Modifier
+                .size(56.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Add House",
+                tint = Color.White
+            )
+        }
+
+    }
+}
+
 
 
 

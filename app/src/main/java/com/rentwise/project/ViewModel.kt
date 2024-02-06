@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.rentwise.project.data.Data
 import com.rentwise.project.data.Data.currentState
 import com.rentwise.project.data.Data.usersList
+import com.rentwise.project.data.House
 import com.rentwise.project.data.TAG
 import com.rentwise.project.data.User
+import com.rentwise.project.database.sqlite.houses.HouseDAO
+import com.rentwise.project.database.sqlite.houses.Houses
 import com.rentwise.project.database.sqlite.users.Users
 import com.rentwise.project.database.sqlite.users.UsersDAO
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class ViewModel(private val modelDAO : UsersDAO) : ViewModel(){
+class ViewModel(private val userDAO : UsersDAO, private val houseDAO: HouseDAO) : ViewModel(){
 
     /**
      * Cambia el estado de la aplicación según el número proporcionado.
@@ -23,11 +26,11 @@ class ViewModel(private val modelDAO : UsersDAO) : ViewModel(){
      * Esta función actualiza el valor del estado actual ([Data.currentState]) según el número proporcionado.
      * La transición de estados se realiza de la siguiente manera:
      *
-     * - Si el número es 0: De [Data.AppState.START] a [Data.AppState.LOGIN]
-     * - Si el número es 1: De [Data.AppState.LOGIN] a [Data.AppState.REGISTRO]
-     * - Si el número es 2: De [Data.AppState.REGISTRO] a [Data.AppState.HOME]
-     * - Si el número es 3: De [Data.AppState.HOME] a [Data.AppState.HOUSE]
-     * - Si el número es 4: De [Data.AppState.HOUSE] a [Data.AppState.HOME]
+     * - Si el número es 0:  [Data.AppState.START]
+     * - Si el número es 1:  [Data.AppState.LOGIN]
+     * - Si el número es 2:  [Data.AppState.REGISTRO]
+     * - Si el número es 3:  [Data.AppState.HOME]
+     * - Si el número es 4:  [Data.AppState.HOUSE]
      *
      * Después de cambiar el estado, se registra la nueva configuración en el registro de eventos.
      *
@@ -62,7 +65,7 @@ class ViewModel(private val modelDAO : UsersDAO) : ViewModel(){
         viewModelScope.launch {
             val usuario: Users = Users(user.dni,user.email,user.phoneNumber,user.username,user.password)
             Log.d(TAG, usuario.toString())
-            modelDAO.insertUser(usuario)
+            userDAO.insertUser(usuario)
         }
     }
 
@@ -75,7 +78,7 @@ class ViewModel(private val modelDAO : UsersDAO) : ViewModel(){
 
     fun getUsers(){
       viewModelScope.launch {
-            usersList = modelDAO.getAllUsers().toMutableList()
+            usersList = userDAO.getAllUsers().toMutableList()
                 Log.d(TAG, usersList.toString())
 
         }
@@ -95,7 +98,7 @@ class ViewModel(private val modelDAO : UsersDAO) : ViewModel(){
     fun login(dni:String,pwd:String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-            val user = modelDAO.getUserById(dni)
+            val user = userDAO.getUserById(dni)
             if (user != null) {
                 if (  user.pwd == pwd ){
                     Log.d(TAG, "logeado $user")
@@ -110,9 +113,92 @@ class ViewModel(private val modelDAO : UsersDAO) : ViewModel(){
     }
 
 
-
-
-
-
-
+    /**
+     * Registra una nueva casa en la base de datos.
+     *
+     * Este método asincrónico utiliza Coroutines para ejecutarse en un hilo de fondo,
+     * permitiendo operaciones de larga duración sin bloquear el hilo principal de la interfaz de usuario.
+     *
+     * @param house La casa que se va a registrar en la base de datos.
+     */
+    fun registerHouse(house : House){
+        viewModelScope.launch {
+            val newHouse: Houses = Houses(0, house.name,house.country,house.city,house.address,house.rent_hotel,house.price)
+            Log.d(TAG,newHouse.toString())
+            houseDAO.insertHouse(newHouse)
+        }
     }
+
+
+    /*
+     *A head are going to be implemented verification Methods, for the
+     * Register of new users
+     */
+
+
+    /**
+     * Funcion validar dni
+     */
+   private fun validateDNI(userDNI : String): Boolean{
+        val dniRegex = Regex("^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]\$", RegexOption.IGNORE_CASE)
+
+        if (userDNI.matches(dniRegex)) {
+            val numero = userDNI.substring(0, 8).toInt()
+            val letra = userDNI.substring(8, 9).uppercase()
+
+            // Array con las letras correspondientes a los números del DNI
+            val letras = "TRWAGMYFPDXBNJZSQVHLCKE".toCharArray()
+
+            // Calcula la letra correspondiente al número del DNI
+            val letraCalculada = letras[numero % 23]
+
+            // Compara la letra calculada con la letra proporcionada
+            return letra == letraCalculada.toString()
+        }
+
+        return false
+    }
+
+    /**
+     * Función para validar un correo electrónico.
+     * @param userMail El correo electrónico a validar.
+     * @return true si el correo es válido, false de lo contrario.
+     */
+    private fun validateEmail(userMail: String?): Boolean {
+        val completeMail = userMail ?: return false // Verifica si el correo es nulo y retorna false si lo es
+
+        if (!completeMail.contains("@")) {
+            return false // Si no contiene "@", el correo no es válido
+        }
+
+        val mailParts = completeMail.split("@")
+        if (mailParts.size != 2) {
+            return false // Si no tiene exactamente dos partes después de dividir por "@", el correo no es válido
+        }
+
+        val localPart = mailParts[0]
+        val domainPart = mailParts[1]
+
+        if (localPart.isBlank() || domainPart.isBlank()) {
+            return false // Si alguna parte está en blanco, el correo no es válido
+        }
+
+        // Puedes agregar más validaciones según tus requisitos, como validar el dominio, el formato, etc.
+        // En este ejemplo, solo se verifica que el dominio tenga al menos un punto.
+        if (!domainPart.contains(".")) {
+            return false // Si el dominio no contiene al menos un punto, el correo no es válido
+        }
+
+        return true // Si llega hasta aquí, el correo es válido
+    }
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,16 +1,18 @@
 package com.rentwise.project.data
 
 import androidx.compose.runtime.mutableStateOf
+import com.rentwise.project.database.sqlite.houses.Houses
 import com.rentwise.project.database.sqlite.users.Users
 
-val TAG = "Login"
+val TAG = "Msg"
 object Data {
 
     //List of users in the database
     var usersList : MutableList<Users> = mutableListOf()
     //var currentState =AppState.START
     var currentState = mutableStateOf(AppState.START)
-
+    //List of Houses in the database
+    var houseList: MutableList<Houses> = mutableListOf()
     /**
      * Enumeración que representa los posibles estados de la aplicación.
      *

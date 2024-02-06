@@ -13,7 +13,7 @@ import androidx.room.Room
 import com.rentwise.project.data.Data
 import com.rentwise.project.data.Data.currentState
 import com.rentwise.project.data.TAG
-import com.rentwise.project.database.sqlite.users.AppDatabase
+import com.rentwise.project.database.sqlite.AppDatabase
 import com.rentwise.project.ui.theme.*
 import com.rentwise.project.ui.theme.RENTWISE_CONTROLTheme
 
@@ -35,11 +35,13 @@ class MainActivity() : ComponentActivity() {
                     val database = Room.databaseBuilder(
                         this,
                         AppDatabase::class.java,
-                        "user"
+                        "rentWise"
                     ).build()
-                    val dao = database.userDAO()
 
-                    val viewModel = ViewModel(dao)
+                    val userdao = database.userDAO()
+                    val housedao = database.houseDAO()
+
+                    val viewModel = ViewModel(userdao, housedao)
                     viewModel.getUsers()
 
                     Greeting(viewModel)
