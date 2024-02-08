@@ -1,0 +1,58 @@
+* ae43f42 Validation functions
+*   0b79358 Merge pull request #16 from marcosfa00/db_house
+|\  
+| * 7a3e959 preparing House Database
+|/  
+* 51c7397 Ui little change
+* 56daf5c Scrollable cards
+* 1b60883 Roll back
+* d1df880 manifest
+* e4efb8c ic_launcher_playstore
+* b156f6a ultimate files
+* f22138a upload app icon
+*   e157b8f Merge pull request #12 from marcosfa00/txtChanges
+|\  
+| * 4598328 to update
+* |   c161c69 Merge pull request #15 from NicolasRodriguezSteuerberg/revert-14-nico
+|\ \  
+| * | 254740a Revert "Update README.md"
+|/ /  
+* |   a4f8b1a Merge pull request #14 from NicolasRodriguezSteuerberg/nico
+|\ \  
+| * | 4486fac Update README.md
+* | | a15ff1b Merge pull request #13 from NicolasRodriguezSteuerberg/nico
+|\| | 
+| |/  
+|/|   
+| * b05a9e1 Update README.md
+|/  
+* 7eb7e62 background image
+*   9764230 Merge pull request #11 from marcosfa00/ui
+|\  
+| * ce979cc Background User Interface
+| * 280b0fb UI of the HOUSE
+|/  
+*   e8063a8 Merge pull request #10 from marcosfa00/database
+|\  
+| * 1636d71 Graddle with dependences
+| *   73ca345 Merge pull request #9 from marcosfa00/main
+| |\  
+| |/  
+|/|   
+* | 824b035 Merge pull request #8 from marcosfa00/database
+|\| 
+| * cb20412 Log In with corrutines
+| * e43980a implementation of postgress
+|/  
+*   75d306b Merge pull request #7 from marcosfa00/dev_marcosfa
+|\  
+| * 2f4a3d2 First user Interface  IT WORKS
+| * e7c507c REGISTRO CENTRADO
+| * 8fd2aa3 LOG IN & REGISTER SHOW-UP
+| * 8ffb004 REGISTER
+| * 5411f19 User interface
+| * 7f6744a User inteface
+| * 6247e8d Readme.md
+|/  
+* 0f1e913 afregando archivo .gitignore
+* 3da1a3e Initial commit
